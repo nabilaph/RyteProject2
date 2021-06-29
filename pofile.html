@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ryte - My Profile</title>
+    <link rel="shortcut icon" href="images/rytelogo.png" type="image/png" sizes="25x25">
+    <link rel="stylesheet" href="css/profile.css">
+        
+</head>
+<body>
+    <nav>
+        <div class="logo">
+            <img src="images/rytelogo.png" alt="" width="50px">
+        </div>
+
+        <ul class="basic">
+            <li><a href="publicStories.html"><img src="images/opinion.svg" alt="" width = "40px" ></a></li>
+            <li><a  href="myStories.html"><img src="images/chat.svg" alt="" width = "35px" ></a></li>
+            <li id="active"><a  href="pofile.html"><img src="images/user.svg" alt="" width = "35px" ></a></li>
+    
+        </ul>
+        
+        <a class="logOut" href="" onclick="logOut()">
+            <img src="images/logout.svg"  alt="" width = "35px">
+        </a>
+
+        <ul class="resp">
+            <li><a href="publicStories.html">Public Story</a></li>
+            <li><a href="myStories.html">My Story</a></li>
+            <li><a href="pofile.html">Profile</a></li>
+            <li><a href="" onclick="logOut()" class="logout-btn">Log Out</a></li>
+        </ul>
+
+        <div class="menu-toggle">
+            <input type="checkbox">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>        
+    </nav>
+
+    <div class="container">
+        <div class="profile-container">
+            <h4>My Profile</h4>
+            <br>
+            <div class="dp-potrait">
+                <img src="images/dp.svg" alt="">
+            </div>
+
+            <h5 id="fullname">
+            </h5>
+            <br>
+            <hr style="width: 100%; text-align: center; background-color: black;">
+            <br>
+            <form action="editProfile.html">
+                <input type="text" name="username" id="username" disabled>
+                <input type="email" name="email" id="email" disabled>
+                <input type="password" name="password" id="password" disabled>
+                <input type="submit" value="Edit Profile" name="editProfile-btn" id="editProfile-btn">
+            </form>
+    
+        </div>
+        <div class="sideSection" >
+            <div class="createStories">
+                <img src="images/createStories.svg" alt="" width="55px">
+                <div>
+                 <h4>
+                     Create Youre Own Stories!
+                 </h4>
+                 <div id="createStory">
+                    <input type="text" placeholder="What's New?..."> 
+                    
+                 </div>
+                </div>
+             </div>
+             <div class= "insightProfile">
+                <div class="post">
+                    <h3 id="postCount"> {{postCount}} </h3>
+                    <p> Posts </p>
+                </div>
+                <div class="likes">
+                    <h3 id="likesCount"> {{likesCount}} </h3>
+                    <p> Likes </p>
+                </div>
+             </div>
+        </div>
+
+    </div>
+
+    <button id="toTop">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+     <!-- The Modal -->
+     <div id="myModal" class="modal">
+
+        <!-- Modal content -->
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Create Story</h2><br>
+            <div>
+                <input type="text" id = "content" placeholder="What's New?..."> 
+                <input type="button" value="Post" id="post-btn" onclick="addStories()">
+            </div>
+        </div>
+    
+    </div>
+  
+   
+    <script src="js/scrollToTop.js"></script>
+    
+    <script src="js/popup.js"></script>
+    <script src="js/resp_nav.js"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-auth.js"></script>
+    <script src="js/firebaseCode.js"></script>
+    <script src="js/User.js"></script>
+    <script src="js/Stories.js"></script>
+</body>
+</html>

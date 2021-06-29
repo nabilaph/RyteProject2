@@ -1,0 +1,535 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;600;700;800&display=swap');
+
+*{
+    margin: 0;
+    padding:0;
+}
+
+body{
+    font-family: 'Montserrat', sans-serif;
+    background-color: #eae2b7;
+}
+
+/* navbar */
+nav{
+    display: flex;
+    background-color: #003049;
+    justify-content: space-between;
+    /* padding: 20px 0; */
+    height: 60px;
+    padding: 0 60px;
+    align-items: center;
+}
+
+nav .basic #active{
+    border-bottom: 3px solid white;
+}
+
+nav .basic{
+    display: flex;
+    list-style: none;
+    width: 45%;
+    justify-content: space-between;
+    
+}
+
+nav .basic li a{
+    color: white;
+    text-decoration: none;
+    font-size: 0.85em;
+}
+
+nav .basic li a:hover{
+    color:#eae2b7;
+}
+
+nav .resp{
+    display: none;
+    list-style: none;
+    width: 45%;
+    justify-content: space-between;
+    
+}
+
+nav .resp li a{
+    color: white;
+    text-decoration: none;
+    font-size: 0.85em;
+}
+
+nav .resp li .logout-btn{
+    background-color: #d62828;
+    border-radius: 5px;
+    padding: 7px 35px;
+    box-shadow: 0 1px 6px #000;
+    color:white;
+    font-family: 'Montserrat', sans-serif;
+}
+
+nav .resp li a:hover{
+    color:#eae2b7;
+}
+
+nav .resp li .logout-btn:hover{
+    background-color:#ac2121;
+    color: white;
+}
+
+/* hamburger menu */
+.menu-toggle{
+    display: none;
+    position: relative;
+    height: 20px;
+}
+
+.menu-toggle input{
+    position: absolute;
+    width: 40px;
+    height:28px;
+    opacity: 0;
+    left: -6px;
+    top:-3px;
+    cursor: pointer;
+    z-index: 2;
+}
+
+.menu-toggle span{
+    display: block;
+    width: 28px;
+    height: 3px;
+    background-color: white;
+    border-radius: 3px;
+    transition: all 0.5s;
+}
+
+/* hamburger menu animation */
+
+.menu-toggle span:nth-child(2){
+    transform-origin: 0 0;
+}
+
+.menu-toggle span:nth-child(4){
+    transform-origin: 0 100%;
+}
+
+.menu-toggle input:checked ~ span:nth-child(2){
+    transform: rotate(45deg) translate(-1px, -1px);
+}
+
+.menu-toggle input:checked ~ span:nth-child(4){
+    transform: rotate(-45deg) translate(-1px, 0);
+}
+
+.menu-toggle input:checked ~ span:nth-child(3){
+    transform: scale(0);
+}
+
+/* container */
+.container {
+display: flex;
+justify-content:space-evenly;
+padding: 40px 0;
+width: 100%;
+}
+
+.storiesContainer {
+    background-color: #fcbf49;
+    padding: 20px;
+    width: 50%;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.stories{
+    background-color: white;
+    height: auto;
+    width: 80%;
+    border-radius: 10px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px 0;
+}
+
+.stories>* {
+    margin-bottom: 10px;
+}
+
+.stories p .storiesContainer{
+    width: 80%;
+    margin: 0 10px;
+    text-align: left;
+}
+.dateAndLikes{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    margin: 10px 0;
+    font-size: 0.8em;
+}
+
+.dateAndLikes #like-btn.liked{
+    color: red
+}
+
+.dateAndLikes #like-btn{
+    color: #808080
+}
+
+.dp-potrait {
+    position: relative;
+    width: 50px;
+    height: 50px;
+    overflow: hidden;
+    border-radius: 50%;
+}
+  
+.dp-potrait img {
+    width: 100%;
+    height: auto;
+}
+
+.dp-landscape {
+    display: inline-block;
+    position: relative;
+    width: 50px;
+    height: 50px;
+    overflow: hidden;
+    border-radius: 50%;
+}
+  
+.dp-landscape img {
+    height: 100%;
+    width: auto;
+    margin-left: -25%;
+}
+
+/* side section */
+.sideSection{
+    display: flex;
+    flex-direction: column;
+}
+
+/* create stories */
+.createStories{
+    background-color: #fcbf49;
+    display: flex;
+    flex-direction: row;
+    max-width: 1000px;
+    height: auto;
+    padding: 20px 30px;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.createStories > div{
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+}
+
+.createStories > div > form{
+    display: flex;
+    flex-direction: column;
+}
+
+.createStories > div > form > #post-btn{
+    width: 80px;
+    border-radius: 5px;
+    color: white;
+    padding: 5px;
+    background-color: #d62828;
+    margin-top: 10px;
+    font-family: 'Montserrat', sans-serif;
+}
+
+createStories > div > form > #content{
+    max-width: 400px;
+    height: auto;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.createStories > div > h4{
+    margin-bottom: 10px;
+}
+
+.createStories > div input{
+    padding: 8px;
+    border-radius: 5px;
+    border: 0;
+    width: auto;
+}
+
+.createStories > div input::placeholder{
+    font-family: 'Montserrat', sans-serif;
+}
+
+/* gallery */
+.publicStoriesGallery {box-sizing:border-box}
+
+/* Slideshow container */
+.slideshow-container {
+  max-width: 1000px;
+  position: relative;
+  margin: auto;
+}
+
+/* Hide the images by default */
+.mySlides {
+  display: none;
+}
+
+/* Next & previous buttons */
+.prev, .next {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  width: auto;
+  margin-top: -22px;
+  padding: 16px;
+  color: white;
+  font-weight: bold;
+  font-size: 18px;
+  transition: 0.6s ease;
+  border-radius: 0 3px 3px 0;
+  user-select: none;
+}
+
+/* Position the "next button" to the right */
+.next {
+  right: 0;
+  border-radius: 3px 0 0 3px;
+}
+
+/* On hover, add a black background color with a little bit see-through */
+.prev:hover, .next:hover {
+  background-color: rgba(0,0,0,0.8);
+}
+
+/* Caption text */
+.text {
+  color: #f2f2f2;
+  font-size: 15px;
+  padding: 8px 12px;
+  position: absolute;
+  bottom: 8px;
+  width: 100%;
+  text-align: center;
+}
+
+/* Number text (1/3 etc) */
+.numbertext {
+  color: #f2f2f2;
+  font-size: 12px;
+  padding: 8px 12px;
+  position: absolute;
+  top: 0;
+}
+
+/* The dots/bullets/indicators */
+.dot {
+  cursor: pointer;
+  height: 15px;
+  width: 15px;
+  margin: 0 2px;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+  transition: background-color 0.6s ease;
+}
+
+.active, .dot:hover {
+  background-color: #717171;
+}
+
+/* Fading animation */
+.fade {
+  -webkit-animation-name: fade;
+  -webkit-animation-duration: 1.5s;
+  animation-name: fade;
+  animation-duration: 1.5s;
+}
+
+@-webkit-keyframes fade {
+  from {opacity: .4}
+  to {opacity: 1}
+}
+
+@keyframes fade {
+  from {opacity: .4}
+  to {opacity: 1}
+}
+
+/* btn scroll to top */
+#toTop{
+    position: fixed;
+    right: 10px;
+    bottom: 10px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: #d62828;
+    font-size: 25px;
+    color: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
+    cursor: pointer;
+    border: none;
+}
+
+#toTop:active{
+    background: #ac2121;
+}
+
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+  background-color: #eae2b7;
+  margin: auto;
+  padding: 20px;
+  border-radius: 20px;
+  border: 1px solid #888;
+  width: 50%;
+}
+
+.modal-content form{
+    display: flex;
+    flex-direction: column;
+}
+
+.modal-content > form > #post-btn{
+    width: 80px;
+    border-radius: 5px;
+    color: white;
+    padding: 5px;
+    background-color: #d62828;
+    margin-top: 10px;
+    font-family: 'Montserrat', sans-serif;
+    cursor: pointer;
+}
+
+.modal-content > form > #content{
+    max-width: 400px;
+    height: 100px;
+    text-align: left;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.modal-content > form input{
+    padding: 8px;
+    border-radius: 5px;
+    border: 0;
+    width: auto;
+}
+
+.modal-content > form input::placeholder{
+    font-family: 'Montserrat', sans-serif;
+}
+
+/* The Close Button */
+.close {
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* responsive breakpoint */
+/* tablet */
+@media screen and (max-width: 768px) {
+
+    nav{
+        padding: 0px 20px;
+    }
+    nav .resp{
+        width:55%;
+    }
+
+    .container{
+        flex-direction: column-reverse;
+        align-items: center;
+    }
+
+    .container> *{
+        width: 80%;
+    }
+    .sideSection{
+        align-items: center;
+        margin-bottom: 30px;
+    }
+    .sideSection > *{
+        width: 100%;
+        
+    }
+}
+
+/* mobile */
+@media screen and (max-width: 576px) {
+
+    nav{
+        padding: 0px 40px;
+    }
+
+    nav .basic, nav .logOut{
+        display: none;
+    }
+
+    nav .resp, nav .menu-toggle, nav .logo > img{
+        z-index: 999;
+    }
+
+    nav .resp{
+        display: flex;
+        position: absolute;
+        width: 100%;
+        right: 0;
+        top:0;
+        left:0;
+        background-color: #003049;
+        flex-direction: column;
+        align-items: center;
+        height: 80vh;
+        justify-content:space-evenly;
+        transform: translateY(-100%);
+        transition: all 1s;
+    }
+
+    nav .resp.slide{
+        transform: translateY(0);
+    }
+
+    nav .resp li .logout-btn{
+        background-color: none;
+        box-shadow: none;
+    }
+
+    .menu-toggle{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+}

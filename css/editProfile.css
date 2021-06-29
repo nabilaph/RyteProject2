@@ -1,0 +1,270 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;600;700;800&display=swap');
+
+*{
+    margin: 0;
+    padding:0;
+}
+
+body{
+    font-family: 'Montserrat', sans-serif;
+    background-color: #eae2b7;
+}
+
+/* navbar */
+nav{
+    display: flex;
+    background-color: #003049;
+    justify-content: space-between;
+    /* padding: 20px 0; */
+    height: 60px;
+    padding: 0 60px;
+    align-items: center;
+}
+
+nav .basic li .active img{
+    border: 3px solid white;
+}
+
+nav .basic{
+    display: flex;
+    list-style: none;
+    width: 45%;
+    justify-content: space-between;
+    
+}
+
+nav .basic li a{
+    color: white;
+    text-decoration: none;
+    font-size: 0.85em;
+}
+
+nav .basic li a:hover{
+    color:#eae2b7;
+}
+
+nav .resp{
+    display: none;
+    list-style: none;
+    width: 45%;
+    justify-content: space-between;
+    
+}
+
+nav .resp li a{
+    color: white;
+    text-decoration: none;
+    font-size: 0.85em;
+}
+
+nav .resp li .logout-btn{
+    background-color: #d62828;
+    border-radius: 5px;
+    padding: 7px 35px;
+    box-shadow: 0 1px 6px #000
+}
+
+nav .resp li a:hover{
+    color:#eae2b7;
+}
+
+nav .resp li .logout-btn:hover{
+    background-color:#ac2121;
+    color: white;
+}
+
+/* hamburger menu */
+.menu-toggle{
+    display: none;
+    position: relative;
+    height: 20px;
+}
+
+.menu-toggle input{
+    position: absolute;
+    width: 40px;
+    height:28px;
+    opacity: 0;
+    left: -6px;
+    top:-3px;
+    cursor: pointer;
+    z-index: 2;
+}
+
+.menu-toggle span{
+    display: block;
+    width: 28px;
+    height: 3px;
+    background-color: white;
+    border-radius: 3px;
+    transition: all 0.5s;
+}
+
+/* hamburger menu animation */
+
+.menu-toggle span:nth-child(2){
+    transform-origin: 0 0;
+}
+
+.menu-toggle span:nth-child(4){
+    transform-origin: 0 100%;
+}
+
+.menu-toggle input:checked ~ span:nth-child(2){
+    transform: rotate(45deg) translate(-1px, -1px);
+}
+
+.menu-toggle input:checked ~ span:nth-child(4){
+    transform: rotate(-45deg) translate(-1px, 0);
+}
+
+.menu-toggle input:checked ~ span:nth-child(3){
+    transform: scale(0);
+}
+
+/* container */
+.container {
+    display: flex;
+    flex-direction: row;
+    justify-content:space-evenly;
+    padding: 40px 0;
+    width: 100%;
+    }
+
+.dp-potrait {
+    position: relative;
+    width: 50px;
+    height: 50px;
+    overflow: hidden;
+    border-radius: 50%;
+}
+  
+.dp-potrait img {
+    width: 100%;
+    height: auto;
+}
+
+.editProfile-container{
+    background-color:#fcbf49;
+    height: 100%;
+    width: 60vh;
+    padding: 30px 60px;
+    display: flex;
+    flex-direction: column;
+    /* justify-content: space-evenly; */
+    align-items: center;
+}
+
+.editProfile-container h4{
+    color: #d62828;
+    font-size: 1.8em;
+}
+
+.editProfile-container h5{
+    color: #000000;
+    font-size: 1em;
+}
+
+.editProfile-container input{
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0;
+    box-sizing: border-box;
+    border-radius:  10px;
+    background-color: #fcbf49;
+    border: 2px solid #d62828;
+    text-align: center;
+    font-family: 'Montserrat', sans-serif;
+    color: black;
+}
+
+.editProfile-container form > *{
+    margin: 0 0 20px 0;
+}
+
+.editProfile-container input::placeholder{
+    color: #b97446;
+}
+
+.buttons{
+    display : flex;
+}
+
+.editProfile-container input[type="button"],.editProfile-container input[type="submit"]{
+    background-color: #d62828;
+    box-shadow: 0 1px 1px #000;
+    border: none;
+    cursor: pointer;
+    margin-top: 15px;
+    color: white;
+    margin: 15px ;
+}
+
+.editProfile-container .buttons #change-btn {
+    background-color: #003049;
+}
+
+/* responsive breakpoint */
+
+/* tablet */
+@media screen and (max-width: 768px) {
+   
+    nav{
+        padding: 0px 20px;
+    }
+    nav .resp{
+        width:55%;
+    }
+
+}
+
+/* mobile */
+@media screen and (max-width: 576px) {
+   
+    nav{
+        padding: 0px 40px;
+    }
+
+    nav .basic, nav .logOut{
+        display: none;
+    }
+
+    nav .resp, nav .menu-toggle, nav .logo > img{
+        z-index: 999;
+    }
+
+    nav .resp{
+        display: flex;
+        position: absolute;
+        width: 100%;
+        right: 0;
+        top:0;
+        left:0;
+        background-color: #003049;
+        flex-direction: column;
+        align-items: center;
+        height: 80vh;
+        justify-content:space-evenly;
+        transform: translateY(-100%);
+        transition: all 1s;
+    }
+
+    nav .resp.slide{
+        transform: translateY(0);
+    }
+
+    nav .resp li .logout-btn{
+        background-color: none;
+        box-shadow: none;
+    }
+
+    .menu-toggle{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    .editProfile-container{
+        margin: 0 30px 0 30px;
+    }
+}

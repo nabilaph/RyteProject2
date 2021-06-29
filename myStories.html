@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ryte - My Stories</title>
+    <link rel="shortcut icon" href="images/rytelogo.png" type="image/png" sizes="25x25">
+    <link rel="stylesheet" href="css/mySrories.css">
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+        
+</head>
+<body>
+    <nav>
+        <div class="logo">
+            <img src="images/rytelogo.png" alt="" width="50px">
+        </div>
+
+        <ul class="basic">
+            <li><a href="publicStories.html"><img src="images/opinion.svg" alt="" width = "40px" ></a></li>
+            <li id="active"><a  href="myStories.html"><img src="images/chat.svg" alt="" width = "35px" ></a></li>
+            <li><a  href="pofile.html"><img src="images/user.svg" alt="" width = "35px" ></a></li>
+    
+        </ul>
+        
+        <a class="logOut" href="" onclick="logOut()">
+            <img src="images/logout.svg"  alt="" width = "35px">
+        </a>
+
+        <ul class="resp">
+            <li><a href="publicStories.html">Public Story</a></li>
+            <li><a href="myStories.html">My Story</a></li>
+            <li><a href="pofile.html">Profile</a></li>
+            <li><a href="" onclick="logOut()" class="logout-btn">Log Out</a></li>
+        </ul>
+
+        <div class="menu-toggle">
+            <input type="checkbox">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>        
+    </nav>
+    <div class="container">
+        <div class="storiesContainer" id="storiesContainer">
+            <div class="stories" id="storiesNull">
+                <h4 style="text-align: center;">
+                    There is no stories here...
+                </h4>
+            </div>
+                        
+        </div>
+    <div class="sideSection">
+        <div class="createStories">
+            <img src="images/createStories.svg" alt="" width="55px">
+            <div>
+             <h4>
+                 Create Youre Own Stories!
+             </h4>
+             <form action="" id="createStory">
+                <input type="text" placeholder="What's New?..."> 
+                
+            </form>
+            </div>
+         </div>
+             <div class= "publicStoriesGallery" >
+                <!-- Slideshow container -->
+                <div class="slideshow-container">
+
+                    <!-- Full-width images with number and caption text -->
+                    <div class="mySlides fade">
+                        <img src="images/photo5.svg" style="width:100%">
+                    </div>
+                
+                    <div class="mySlides fade">
+                        <img src="images/photo6.svg" style="width:100%">
+                    </div>
+
+                    <div class="mySlides fade">
+                        <img src="images/photo7.svg" style="width:100%">
+                    </div>               
+                
+                    <!-- Next and previous buttons -->
+                    <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+                    <a class="next" onclick="plusSlides(1)">&#10095;</a>
+                </div>
+                <br>
+  
+                <!-- The dots/circles -->
+                <div style="text-align:center">
+                    <span class="dot" onclick="currentSlide(1)"></span>
+                    <span class="dot" onclick="currentSlide(2)"></span>
+                    <span class="dot" onclick="currentSlide(3)"></span>
+                </div>
+             </div>
+        </div>
+    </div>
+
+    <button id="toTop">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+   
+     <!-- The Modal -->
+     <div id="myModal" class="modal" ng-controller="StoriesController">
+
+        <!-- Modal content -->
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Create Story</h2><br>
+            <di>
+                <input type="text" id = "content" placeholder="What's New?..."> 
+                <input type="button" onclick="addStories()" value="Post" id="post-btn">
+            </div>
+        </div>
+    
+    </div>
+  
+   
+    <script src="js/scrollToTop.js"></script>
+    
+    <script src="js/resp_nav.js"></script>
+    <script src="js/gallery.js"></script>
+    <script src="js/popup.js"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-auth.js"></script>
+    <script src="js/firebaseCode.js"></script>
+    <script src="js/Stories.js"></script>
+    <script src="js/User.js"></script>
+</body>
+</html>

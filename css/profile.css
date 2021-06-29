@@ -1,0 +1,432 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;600;700;800&display=swap');
+
+*{
+    margin: 0;
+    padding:0;
+}
+
+body{
+    font-family: 'Montserrat', sans-serif;
+    background-color: #eae2b7;
+    overflow-x :hidden;
+}
+
+/* navbar */
+nav{
+    display: flex;
+    background-color: #003049;
+    justify-content: space-between;
+    /* padding: 20px 0; */
+    height: 60px;
+    padding: 0 60px;
+    align-items: center;
+}
+
+nav .basic #active{
+    border-bottom: 3px solid white;
+}
+
+nav .basic{
+    display: flex;
+    list-style: none;
+    width: 45%;
+    justify-content: space-between;
+    
+}
+
+nav .basic li a{
+    color: white;
+    text-decoration: none;
+    font-size: 0.85em;
+}
+
+nav .basic li a:hover{
+    color:#eae2b7;
+}
+
+nav .resp{
+    display: none;
+    list-style: none;
+    width: 45%;
+    justify-content: space-between;
+    
+}
+
+nav .resp li a{
+    color: white;
+    text-decoration: none;
+    font-size: 0.85em;
+}
+
+nav .resp li .logout-btn{
+    background-color: #d62828;
+    border-radius: 5px;
+    padding: 7px 35px;
+    box-shadow: 0 1px 6px #000
+}
+
+nav .resp li a:hover{
+    color:#eae2b7;
+}
+
+nav .resp li .logout-btn:hover{
+    background-color:#ac2121;
+    color: white;
+}
+
+/* hamburger menu */
+.menu-toggle{
+    display: none;
+    position: relative;
+    height: 20px;
+}
+
+.menu-toggle input{
+    position: absolute;
+    width: 40px;
+    height:28px;
+    opacity: 0;
+    left: -6px;
+    top:-3px;
+    cursor: pointer;
+    z-index: 2;
+}
+
+.menu-toggle span{
+    display: block;
+    width: 28px;
+    height: 3px;
+    background-color: white;
+    border-radius: 3px;
+    transition: all 0.5s;
+}
+
+/* hamburger menu animation */
+
+.menu-toggle span:nth-child(2){
+    transform-origin: 0 0;
+}
+
+.menu-toggle span:nth-child(4){
+    transform-origin: 0 100%;
+}
+
+.menu-toggle input:checked ~ span:nth-child(2){
+    transform: rotate(45deg) translate(-1px, -1px);
+}
+
+.menu-toggle input:checked ~ span:nth-child(4){
+    transform: rotate(-45deg) translate(-1px, 0);
+}
+
+.menu-toggle input:checked ~ span:nth-child(3){
+    transform: scale(0);
+}
+
+/* container */
+.container {
+    display: flex;
+    flex-direction: row;
+    justify-content:space-evenly;
+    padding: 40px 0;
+    width: 100%;
+    }
+
+/* display picture */
+
+.dp-potrait {
+    position: relative;
+    width: 50px;
+    height: 50px;
+    overflow: hidden;
+    border-radius: 50%;
+}
+  
+.dp-potrait img {
+    width: 100%;
+    height: auto;
+}
+
+/* profile container */
+
+.container .profile-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    background-color:#fcbf49;
+    height: 70vh;
+    max-width: 400px;
+    padding: 30px 60px;
+    border-radius: 26px;
+    
+}
+
+.profile-container h4{
+    color: #d62828;
+    font-size: 1.8em;
+}
+
+.profile-container h5{
+    color: #000000;
+    font-size: 1.3em;
+}
+
+.profile-container input{
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0;
+    box-sizing: border-box;
+    border-radius:  10px;
+    background-color: #fcbf49;
+    border: 2px solid #d62828;
+    text-align: center;
+    font-family: 'Montserrat', sans-serif;
+    color: black;
+}
+
+.profile-container form > *{
+    margin: 0 0 20px 0;
+}
+
+.profile-container input::placeholder{
+    color: #b97446;
+}
+
+.profile-container input[type=submit]{
+    background-color: #d62828;
+    box-shadow: 0 1px 1px #000;
+    border: none;
+    cursor: pointer;
+    margin-top: 15px;
+    color: white;
+}
+
+.profile-container a{
+    color: #d62828;
+    font-size: 0.8em;
+}
+
+/* side section */
+.sideSection{
+    display: flex;
+    flex-direction: column;
+}
+
+/* create stories */
+.createStories{
+    background-color: #fcbf49;
+    display: flex;
+    flex-direction: row;
+    max-width: 1000px;
+    height: auto;
+    padding: 20px 30px;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.createStories > div{
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+}
+
+.createStories > div > form{
+    display: flex;
+    flex-direction: column;
+}
+
+.createStories > div > form > #post-btn{
+    width: 80px;
+    border-radius: 5px;
+    color: white;
+    padding: 5px;
+    background-color: #d62828;
+    margin-top: 10px;
+    font-family: 'Montserrat', sans-serif;
+}
+
+createStories > div > form > #content{
+    max-width: 400px;
+    height: auto;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.createStories > div > h4{
+    margin-bottom: 10px;
+}
+
+.createStories > div input{
+    padding: 8px;
+    border-radius: 5px;
+    border: 0;
+    width: auto;
+}
+
+.createStories > div input::placeholder{
+    font-family: 'Montserrat', sans-serif;
+}
+
+.insightProfile {
+    background-color: #fcbf49;
+    padding: 15px;
+    /* width: 400px; */
+    display: flex;
+    justify-content: space-around;
+}
+
+.insightProfile > div{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  }
+  
+  /* Modal Content */
+  .modal-content {
+    background-color: #eae2b7;
+    margin: auto;
+    padding: 20px;
+    border-radius: 20px;
+    border: 1px solid #888;
+    width: 50%;
+  }
+  
+  .modal-content form{
+      display: flex;
+      flex-direction: column;
+  }
+  
+  .modal-content > form > #post-btn{
+      width: 80px;
+      border-radius: 5px;
+      color: white;
+      padding: 5px;
+      background-color: #d62828;
+      margin-top: 10px;
+      font-family: 'Montserrat', sans-serif;
+      cursor: pointer;
+  }
+  
+  .modal-content > form > #content{
+      max-width: 400px;
+      height: 100px;
+      text-align: left;
+      font-family: 'Montserrat', sans-serif;
+  }
+  
+  .modal-content > form input{
+      padding: 8px;
+      border-radius: 5px;
+      border: 0;
+      width: auto;
+  }
+  
+  .modal-content > form input::placeholder{
+      font-family: 'Montserrat', sans-serif;
+  }
+  
+  /* The Close Button */
+  .close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
+  
+  .close:hover,
+  .close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+/* responsive breakpoint */
+
+/* tablet */
+@media screen and (max-width: 768px) {
+   
+    nav{
+        padding: 0px 20px;
+    }
+    nav .resp{
+        width:55%;
+    }
+
+    .container{
+        flex-direction: column-reverse;
+        justify-content: space-evenly;
+        align-items: center;
+    }
+
+    .profile-container{
+        margin: 0 20px 0 20px;
+    }
+
+    .sideSection{
+        margin-bottom: 30px;
+    }
+
+}
+
+/* mobile */
+@media screen and (max-width: 576px) {
+   
+    nav{
+        padding: 0px 40px;
+    }
+
+    nav .basic, nav .logOut{
+        display: none;
+    }
+
+    nav .resp, nav .menu-toggle, nav .logo > img{
+        z-index: 999;
+    }
+
+    nav .resp{
+        display: flex;
+        position: absolute;
+        width: 100%;
+        right: 0;
+        top:0;
+        left:0;
+        background-color: #003049;
+        flex-direction: column;
+        align-items: center;
+        height: 80vh;
+        justify-content:space-evenly;
+        transform: translateY(-100%);
+        transition: all 1s;
+    }
+
+    nav .resp.slide{
+        transform: translateY(0);
+    }
+
+    nav .resp li .logout-btn{
+        background-color: none;
+        box-shadow: none;
+    }
+
+    .menu-toggle{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+}
