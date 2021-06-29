@@ -140,10 +140,11 @@ function viewMyStories(userid){
     })
 }
 
-function deleteStories(id){
+function deleteStories(storyid){
+    console.log(storyid);
     var a = confirm("Are you sure want to delete this story?"); 
     if(a){
-        var stories = firebase.database().ref('/stories').child(id);
+        var stories = firebase.database().ref('/stories/' + storyid);
         stories.remove();
         alert("Story deleted.");
     }
@@ -152,6 +153,11 @@ function deleteStories(id){
 
 function likeStories(storyid){
     console.log(storyid);
+    var likesCountRef = firebase.database(). ref('/stories/' + storyid + '/likesCount');
+    likesCountRef.on('value', (snapshot)=>{
+        const data = snapshot.val();
+        data = data + 1;
+    })
 }
 
 function countInsight(){
