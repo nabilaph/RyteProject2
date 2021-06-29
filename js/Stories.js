@@ -30,6 +30,7 @@ firebase.auth().onAuthStateChanged((user) => {
 });
 
 function viewStories(){
+    const today = new Date().toISOString();
     storiesRef = firebase.database().ref('/stories');
     storiesRef.on('value',
     function(rec){
@@ -37,7 +38,7 @@ function viewStories(){
             function(currentrec){            
                 document.getElementById("storiesContainer").innerHTML += `
                 <div class="stories" id="storiesY">
-                <div class="dp-potrait">
+                    <div class="dp-potrait">
                         <img src="images/profilePicture.svg" alt="">
                     </div>
         
@@ -54,9 +55,9 @@ function viewStories(){
                         ${currentrec.val().date}
                         </p> 
                         <p style="font-size:1.4em" id="likesCount">
-                            <i class="fas fa-heart" onclick=" ${likeStories(currentrec.key)}" style="cursor:pointer; color:#808080"></i>  ${currentrec.val().likesCount}
+                            <i class="fas fa-heart" onclick="likeStories(${currentrec.key})" style="cursor:pointer; color:#808080"></i>  ${currentrec.val().likesCount}
                         </p>
-                </div>
+                    </div>
                 </div>
                 
                 `
@@ -102,6 +103,7 @@ function addStories(){
 }
 
 function viewMyStories(userid){
+    const today = new Date().toISOString();
     storiesRef = firebase.database().ref('/stories').orderByChild('userid').equalTo(userid);
     storiesRef.on('value',
     function(rec){
@@ -109,7 +111,7 @@ function viewMyStories(userid){
             function(currentrec){            
                 document.getElementById("storiesContainer").innerHTML += `
                 <div class="stories" id="storiesY">
-                <div class="dp-potrait">
+                    <div class="dp-potrait">
                         <img src="images/profilePicture.svg" alt="">
                     </div>
         
@@ -125,10 +127,11 @@ function viewMyStories(userid){
                         <p id="dateDisp">
                         ${currentrec.val().date}
                         </p> 
-                        <p style="font-size:1.4em" id="likesCount">
-                            <i class="fas fa-heart" onclick=" ${likeStories(currentrec.key)}" style="cursor:pointer; color:#808080"></i>  ${currentrec.val().likesCount}
+                        <p style="font-size:1.4em">
+                            <i class="fas fa-trash-alt" onclick="deleteStories(${currentrec.key})" style="cursor:pointer"></i>
+                            <i class="fas fa-heart" onclick="likeStories(${currentrec.key})" id="like-btn" style="cursor:pointer;"></i> ${currentrec.val().likesCount}
                         </p>
-                </div>
+                    </div>
                 </div>
                 
                 `
@@ -138,13 +141,17 @@ function viewMyStories(userid){
 }
 
 function deleteStories(id){
-    var stories = firebase.database().ref('/stories').child(id);
-    stories.remove();
+    var a = confirm("Are you sure want to delete this story?"); 
+    if(a){
+        var stories = firebase.database().ref('/stories').child(id);
+        stories.remove();
+        alert("Story deleted.");
+    }
 
 }
 
-function likeStories(){
-
+function likeStories(storyid){
+    console.log(storyid);
 }
 
 function countInsight(){
