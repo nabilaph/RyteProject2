@@ -7,8 +7,10 @@ firebase.auth().onAuthStateChanged((user) => {
         }
         var path = window.location.pathname;
         var page = path.split("/").pop();
+
         console.log(page);
         console.log(uid);
+
         storiesRef = firebase.database().ref('/stories');
         if (storiesRef!= null){
             document.getElementById("storiesNull").style.display = "none";
@@ -35,7 +37,8 @@ function viewStories(){
     storiesRef.on('value',
     function(rec){
         rec.forEach(
-            function(currentrec){            
+            function(currentrec){  
+                var username = getUsernameById(currentrec.val().userid);          
                 document.getElementById("storiesContainer").innerHTML += `
                 <div class="stories" id="storiesY">
                     <div class="dp-potrait">
@@ -43,7 +46,7 @@ function viewStories(){
                     </div>
         
                     <h4 id="usernameDisp">
-                        ${currentrec.val().username}
+                        ${username}
                     </h4>
                     
                     <hr style="width: 70%; text-align: center; background-color: #838b8f;">
@@ -82,7 +85,6 @@ function addStories(){
             var storyRef = firebase.database().ref('/stories');
             var storyData = {
                 userid : uid,
-                username : uname,
                 storyContent : storyText,
                 date : currDate,
                 likesCount : 0
@@ -104,11 +106,15 @@ function addStories(){
 
 function viewMyStories(userid){
     const today = new Date().toISOString();
-    storiesRef = firebase.database().ref('/stories').orderByChild('userid').equalTo(userid);
+    let storiesRef = firebase.database().ref('/stories').orderByChild('userid').equalTo(userid);
+    let reversed;
     storiesRef.on('value',
     function(rec){
         rec.forEach(
-            function(currentrec){            
+            function(currentrec){    
+                var username = getUsernameById(currentrec.val().userid) ; 
+
+                console.log(username);      
                 document.getElementById("storiesContainer").innerHTML += `
                 <div class="stories" id="storiesY">
                     <div class="dp-potrait">
@@ -116,7 +122,7 @@ function viewMyStories(userid){
                     </div>
         
                     <h4 id="usernameDisp">
-                        ${currentrec.val().username}
+                        ${username}
                     </h4>
                     
                     <hr style="width: 70%; text-align: center; background-color: #838b8f;">
@@ -162,4 +168,45 @@ function likeStories(storyid){
 
 function countInsight(){
 
+}
+
+function logOut(){
+    var ans = confirm("Are you sure want to log out?");
+    if (ans == true){
+        firebase.auth().signOut().then(function(){
+            alert("Logged out. See you!");
+            window.location.href = "homepage.html"
+        }).catch(function(error){
+            alert(error.message)
+        })
+    }
+    
+}
+
+function getUsernameById(userid){
+    var userRef = firebase.database().ref('/users/'+ userid);
+    console.log(userid);
+    //var username;
+    userRef.on('value', (snapshot)=>{
+        var username = snapshot.val().username;
+        console.log(username);
+        return username;
+    });
+    //return username;
+}
+
+function reverseData(object){
+    var newData = {};
+    var keys = [];
+
+    for(var key in object){
+        keys.push(key);
+    }
+
+    for (var i = keys.length - 1; i >=0 ; i--){
+        var value = object[keys[i]];
+        newData[keys[i]] = value;
+    }
+    console.log(newData);
+    return newData;
 }
