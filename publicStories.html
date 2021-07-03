@@ -115,8 +115,8 @@
         <div class="modal-content">
             <span class="close">&times;</span>
             <h2>Create Story</h2><br>
-            <di>
-                <input type="text" id = "content" placeholder="What's New?..."> 
+            <div>
+             	<textarea rows="5" cols="50" id = "content" placeholder="What's New?..."></textarea>
                 <input type="button" onclick="addStories()" value="Post" id="post-btn">
             </div>
         </div>
@@ -134,6 +134,7 @@
     <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-database.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-auth.js"></script>
     <script src="js/firebaseCode.js"></script>
-    <script src="js/Stories.js"></script>
+    <script src="js/Stories.js"></script>    
+    <script src="js/User.js"></script>
 </body>
 </html>

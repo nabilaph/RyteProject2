@@ -414,7 +414,7 @@ createStories > div > form > #content{
     flex-direction: column;
 }
 
-.modal-content > form > #post-btn{
+.modal-content > div > #post-btn{
     width: 80px;
     border-radius: 5px;
     color: white;

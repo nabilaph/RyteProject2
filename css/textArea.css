@@ -1,0 +1,55 @@
+
+        .main-container {
+            width: 500px;
+            height: 140px;
+            margin: 0px auto;
+            background: #f2f8fd;
+            padding: 10px;
+            border: 3px solid #bedff6;
+            border-radius: 10px;
+        }
+        .main-container:after {
+            content: ".";
+            display: block;
+            height: 0;
+            clear: both;
+            visibility: hidden;
+        }
+        .img-circle {
+            border-radius: 50%;
+            width: 70px;
+            height: 70px;
+        }
+        .EdgeButton {
+            border-radius: 100px;
+            box-shadow: none;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+            line-height: 20px;
+            padding: 6px 16px;
+            position: relative;
+            text-align: center;
+            white-space: nowrap;
+            background-color: #4AB3F4;
+            color: white;
+        }
+        #count {
+            position: absolute;
+            z-index: 10;
+            padding: 2px;
+            margin: 6px;
+            text-align: center;
+            font-size: 15px;
+            font-weight: bold;
+        }
+        #circle {
+            float: left;
+        }
+        #error-message {
+            width: 300px;
+            float: left;
+            margin-top: 8px;
+            color: red;
+            display: none;
+        }
