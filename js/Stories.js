@@ -11,20 +11,32 @@ firebase.auth().onAuthStateChanged((user) => {
         console.log(page);
         console.log(uid);
 
-        storiesRef = firebase.database().ref('/stories');
+	  if(page == "publicStories.html"){
+		storiesRef = firebase.database().ref('/stories');
         if (storiesRef!= null){
-            document.getElementById("storiesNull").style.display = "none";
-            if(page == "publicStories.html"){
+            document.getElementById("storiesNull").style.display = "none"
+		viewStories();;
             
-                viewStories();
-            }else if(page == "myStories.html"){
-                
-                viewMyStories(uid);
-            }
         }else{
             document.getElementById("storiesNull").style.display = "block";
             
-        }
+        }            
+                
+            }else if(page == "myStories.html"){
+			storiesmyRef = firebase.database().ref('/stories').orderByChild('userid').equalTo(uid);
+        if (storiesmyRef!= null){
+            document.getElementById("storiesNull").style.display = "none";
+		viewMyStories(uid);
+            
+        }else{
+            document.getElementById("storiesNull").style.display = "block";
+            
+        }            
+                
+                
+            }
+
+        
         
     }else{
         alert("No Active user");
@@ -34,7 +46,7 @@ firebase.auth().onAuthStateChanged((user) => {
 function viewStories(){
     const today = new Date().toISOString();
     storiesRef = firebase.database().ref('/stories');
-    storiesRef.on('value',
+    storiesRef.once('value',
     function(rec){
         rec.forEach(
             function(currentrec){  
@@ -63,7 +75,7 @@ function viewStories(){
                         ${currentrec.val().date}
                         </p> 
                         <p style="font-size:1.4em" id="likesCount">
-                            <i class="fas fa-heart" onclick="likeStories(${currentrec.key})" style="cursor:pointer; color:#808080"></i>  ${currentrec.val().likesCount}
+                            <i class="fas fa-heart" onclick="likeStories('${currentrec.key}')" style="cursor:pointer; color:#808080"></i>  ${currentrec.val().likesCount}
                         </p>
                     </div>
                 </div>
@@ -105,8 +117,23 @@ function addStories(){
             document.getElementById("content").value = "";
             alert("Story posted!");            
             document.getElementById("myModal").style.display = "none";
+            var path = window.location.pathname;
+        	 var page = path.split("/").pop();
+			if(page == "publicStories.html"){
+            
+                window.location.href = "publicStories.html";
+            }else if(page == "myStories.html"){
                 
-        });    
+                window.location.href = "myStories.html";
+            }else if(page == "pofile.html"){
+                
+                window.location.href = "pofile.html";
+            }
+              
+                
+        });
+	   
+    
         
         
     }
@@ -115,20 +142,37 @@ function addStories(){
 }
 
 function viewMyStories(uid){
-    const today = new Date().toISOString();
+
     let storiesRef = firebase.database().ref('/stories').orderByChild('userid').equalTo(uid);
-    let revercountsed;
     storiesRef.on('value',
-    function(rec){
-        rec.forEach(
-            function(currentrec){    
-            	var userRef = firebase.database().ref('/users/'+ currentrec.val().userid);
+        function (rec) {
+            const data = rec.val()
+            const name = Object.getOwnPropertyNames(data);
+            const datArr = [];
+
+            for (let i = 0; i < name.length; i++) {
+                const id = name[i];
+                datArr.push(data[id]);
+            }
+            const val = datArr;
+            
+ 		 console.log(datArr);
+            console.log(name);
+		 const namerev = name.reverse();
+		 console.log(namerev);	
+            let i = 0;
+
+        val.forEach(
+            function(currentrec){ 
+            	var userRef = firebase.database().ref('/users/'+ currentrec.userid);
 			    var username;
-			    userRef.on('value', (snapshot)=>{
-			        username = snapshot.val().username;
-			        console.log(username);   
-			        
-			        document.getElementById("storiesContainer").innerHTML += `
+                userRef.once('value', (snapshot) => {
+                    
+			         username = snapshot.val().username;
+				   
+
+			
+                    document.getElementById("storiesContainer").innerHTML += `
 			            <div class="stories" id="storiesY">
 			                <div class="dp-potrait">
 			                    <img src="images/profilePicture.svg" alt="">
@@ -140,82 +184,29 @@ function viewMyStories(uid){
 			                
 			                <hr style="width: 70%; text-align: center; background-color: #838b8f;">
 			                <p class="storiesContent" id="storiesContent">
-			                    ${currentrec.val().storyContent}
+			                    ${currentrec.storyContent}
 			                </p>
 			                <div class="dateAndLikes" id="dateAndLikes">
 			                    <p id="dateDisp">
-			                    ${currentrec.val().date}
+			                    ${currentrec.date}
 			                    </p> 
 			                    <p style="font-size:1.4em">
-			                        <i class="fas fa-trash-alt" onclick="deleteStories('${currentrec.key}')" style="cursor:pointer"></i>
-			                        <i class="fas fa-heart" onclick="likeStories('${currentrec.key}')" id="like-btn" style="cursor:pointer;"></i> ${currentrec.val().likesCount}
+			                        <i class="fas fa-trash-alt" onclick="deleteStories('${name[i]}')" style="cursor:pointer"></i>
+			                        <i class="fas fa-heart" onclick="likeStories('${name[i]}')" id="like-btn" style="cursor:pointer;"></i> ${currentrec.likesCount}
 			                    </p>
 			                </div>
 			            </div>
 			            
 			            `
-
-			        
-			    })
+                    i++;
+    });
                 
             }
         )
     })
+
+
 }
-
-// function viewMyStories(uid){
-//     const today = new Date().toISOString();
-//     let storiesRef = firebase.database().ref('/stories').orderByChild('userid').equalTo(uid);
-//     let count = 0;
-//     storiesRef.on('value',
-//     function(rec){
-//         rec.forEach(
-//             function(currentrec){    
-//             	var userRef = firebase.database().ref('/users/'+ currentrec.val().userid);
-// 			    var username;
-// 			    userRef.on('value', (snapshot)=>{
-// 			        username = snapshot.val().username;
-// 			        console.log(username);  
-                    
-//                     var content = '<div class="stories" id="storiesY">';
-//                     count+=1;
-//                     var val = currentrec.val();
-//                         content += '<div class="dp-potrait">';
-//                         content += '<img src="images/profilePicture.svg" alt="">';
-//                         content += '</div>';
-//                         content += '<h4 id="usernameDisp">'+username+'</h4>';
-//                         content += '<hr style="width: 70%; text-align: center; background-color: #838b8f;">';
-//                         content += '<p class="storiesContent" id="storiesContent">'+ val.storyContent +'</p>';
-//                         content += '<div class="dateAndLikes" id="dateAndLikes">';
-//                         content += '<p id="dateDisp">'+ val.date +'</p>';
-//                         content += '<p style="font-size:1.4em">';
-//                         content += '<i class="fas fa-trash-alt" onclick="deleteStories('+ currentrec.key+')" style="cursor:pointer"></i>';
-//                         content += '<i class="fas fa-heart" onclick="likeStories('+ currentrec.key+')" id="like-btn" style="cursor:pointer;"></i>'+ val.likesCount;
-//                         content += '</p>';
-//                         content += '</div>';
-//                         content += '</div>';
-			        
-// 			    })
-                
-//             }
-//         );
-//         $('#storiesContainer').append(content);
-
-//     })
-// }
-
-// var deleteBtn = document.getElementById("deletebtn");
-// deleteBtn.addEventListener('click', e => {
-// 	//e.stopPropagation();
-//    var a = confirm("Are you sure want to delete this story?"); 
-//    if(a){
-//        var stories = firebase.database().ref('/stories/' + 'MdLgTmbxYEDqi0tCNJF');
-//        stories.remove();
-//        alert("Story deleted.");
-//    }
-	
-// })
-
 
 function deleteStories(storyid){
     console.log(storyid);
@@ -230,40 +221,37 @@ function deleteStories(storyid){
 }
 
 function likeStories(storyid){
-    console.log(storyid);
-    var likesCountRef = firebase.database(). ref('/stories/' + storyid + '/likesCount');
-    likesCountRef.on('value', (snapshot)=>{
-        const data = snapshot.val();
-        data = data + 1;
-    })
-    let user = firebase.auth().currentUser;
-        let uid;
-        if(user != null){
-            uid = user.uid;
-            let firebaseRefKey = firebase.database().ref('/likes');
-            firebaseRefKey.on("value", (dataSnapshot)=>{            
-                uname = dataSnapshot.val().username;
-                console.log(uname);
-                var storyRef = firebase.database().ref('/stories');
-                var likesData = {
-                    userid : uid,
-                    storyid : storyText,
-                }
-    
-                const autoId = storyRef.push().key;
-                storyRef.child(autoId).set(likesData);
+    var likeRef = firebase.database().ref('/stories/'+storyid);
+    likeRef.child('likesCount').once('value', function(snapshot) {
+        var currentLikes = snapshot.val() ? snapshot.val() : 0;
+        likeRef.update({
+            'likesCount': currentLikes + 1
+            }, function(error) {
+              if (error) {
+                console.log('Data could not be saved:' + error);
+              } else {
+                console.log('Data saved successfully');
+			alert("You loved the stories, Don't forget to love yourself more!");
+			var path = window.location.pathname;
+        	 var page = path.split("/").pop();
+			if(page == "publicStories.html"){
+            
+                window.location.href = "publicStories.html";
+            }else if(page == "myStories.html"){
                 
-                    
-            });    
-            
-            
-        }
+                window.location.href = "myStories.html";
+            }else if(page == "pofile.html"){
+                
+                window.location.href = "pofile.html";
+            }
+              }
+            });
+    }); 
     
-}
 
-function countInsight(){
 
 }
+
 
 function logOut(){
     var ans = confirm("Are you sure want to log out?");

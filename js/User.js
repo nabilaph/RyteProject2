@@ -49,6 +49,7 @@ firebase.auth().onAuthStateChanged((user) => {
         if(user != null){
             uid = user.uid;
         }
+        countInsight();
         let firebaseRefKey = firebase.database().ref('/users').child(uid);
         firebaseRefKey.on("value", (dataSnapshot)=>{
 		
@@ -105,4 +106,34 @@ function updateProfile(){
     alert("Profile Data Updated!");
     window.location.href ="pofile.html";
 }
+
+function countInsight(){
+    let user = firebase.auth().currentUser;
+    let uid;
+    if(user != null){
+        uid = user.uid;
+    }
+    console.log(uid);
+    let storiesRef = firebase.database().ref('/stories').orderByChild('userid').equalTo(uid);
+    storiesRef.on('value',(snapshot)=>{
+        var countStories=snapshot.numChildren();
+        var countLikes=0; 
+        snapshot.forEach(
+            function(rec){
+                countLikes=countLikes+rec.val().likesCount;
+            }
+        );
+        console.log(countLikes);
+        var insightRef=firebase.database().ref('/insight');
+        var insightData={
+            userid:uid,
+            storiesCount:countStories,
+            likesCount:countLikes,
+        }
+        insightRef.child(uid).set(insightData);
+        document.getElementById('postCount').innerHTML=countStories;
+        document.getElementById('likesCount').innerHTML=countLikes;
+    })
+}
+
 

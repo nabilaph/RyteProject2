@@ -298,7 +298,7 @@ createStories > div > form > #content{
   }
   
   /* Modal Content */
-  .modal-content {
+.modal-content {
     background-color: #eae2b7;
     margin: auto;
     padding: 20px;
@@ -307,12 +307,12 @@ createStories > div > form > #content{
     width: 50%;
   }
   
-  .modal-content form{
+  .modal-content div{
       display: flex;
       flex-direction: column;
   }
   
-  .modal-content > form > #post-btn{
+  .modal-content #post-btn{
       width: 80px;
       border-radius: 5px;
       color: white;
@@ -323,21 +323,21 @@ createStories > div > form > #content{
       cursor: pointer;
   }
   
-  .modal-content > form > #content{
+  .modal-content #content{
       max-width: 400px;
       height: 100px;
       text-align: left;
       font-family: 'Montserrat', sans-serif;
   }
   
-  .modal-content > form input{
+  .modal-content input{
       padding: 8px;
       border-radius: 5px;
       border: 0;
       width: auto;
   }
   
-  .modal-content > form input::placeholder{
+  .modal-content input::placeholder{
       font-family: 'Montserrat', sans-serif;
   }
   
@@ -355,6 +355,7 @@ createStories > div > form > #content{
     text-decoration: none;
     cursor: pointer;
   }
+
 
 /* responsive breakpoint */
 

@@ -47,7 +47,7 @@
             <h4>My Profile</h4>
             <br>
             <div class="dp-potrait">
-                <img src="images/dp.svg" alt="">
+                <img src="images/profilePicture.svg" alt="">
             </div>
 
             <h5 id="fullname">
@@ -95,15 +95,15 @@
     </button>
 
      <!-- The Modal -->
-     <div id="myModal" class="modal">
+    <div id="myModal" class="modal">
 
         <!-- Modal content -->
         <div class="modal-content">
             <span class="close">&times;</span>
             <h2>Create Story</h2><br>
             <div>
-                <input type="text" id = "content" placeholder="What's New?..."> 
-                <input type="button" value="Post" id="post-btn" onclick="addStories()">
+             	<textarea rows="5" cols="50" id = "content" placeholder="What's New?..."></textarea>
+                <input type="button" onclick="addStories()" value="Post" id="post-btn">
             </div>
         </div>
     
