@@ -11,32 +11,20 @@ firebase.auth().onAuthStateChanged((user) => {
         console.log(page);
         console.log(uid);
 
-	  if(page == "publicStories.html"){
-		storiesRef = firebase.database().ref('/stories');
+        storiesRef = firebase.database().ref('/stories');
         if (storiesRef!= null){
-            document.getElementById("storiesNull").style.display = "none"
-		viewStories();;
-            
-        }else{
-            document.getElementById("storiesNull").style.display = "block";
-            
-        }            
-                
-            }else if(page == "myStories.html"){
-			storiesmyRef = firebase.database().ref('/stories').orderByChild('userid').equalTo(uid);
-        if (storiesmyRef!= null){
             document.getElementById("storiesNull").style.display = "none";
-		viewMyStories(uid);
+            if(page == "publicStories.html"){
             
+                viewStories();
+            }else if(page == "myStories.html"){
+                
+                viewMyStories(uid);
+            }
         }else{
             document.getElementById("storiesNull").style.display = "block";
             
-        }            
-                
-                
-            }
-
-        
+        }
         
     }else{
         alert("No Active user");
@@ -46,17 +34,33 @@ firebase.auth().onAuthStateChanged((user) => {
 function viewStories(){
     const today = new Date().toISOString();
     storiesRef = firebase.database().ref('/stories');
-    storiesRef.once('value',
-    function(rec){
-        rec.forEach(
-            function(currentrec){  
-            	var userRef = firebase.database().ref('/users/'+ currentrec.val().userid);
+    storiesRef.on('value',
+        function (rec) {
+            const data = rec.val()
+            const name = Object.getOwnPropertyNames(data);
+            const datArr = [];
+            for (let i = 0; i < name.length; i++) {
+                const id = name[i];
+                datArr.push(data[id]);
+            }
+            const val = datArr.reverse();
+            
+ 		 console.log(datArr);
+            console.log(name);
+		 const namerev = name.reverse();
+		console.log(namerev);	
+            let i = 0;
+        val.forEach(
+            function(currentrec){ 
+            	var userRef = firebase.database().ref('/users/'+ currentrec.userid);
 			    var username;
-			    userRef.on('value', (snapshot)=>{
+                userRef.once('value', (snapshot) => {
+                    
 			         username = snapshot.val().username;
-			        console.log(username);
+				   
+
 			
-			        document.getElementById("storiesContainer").innerHTML += `
+                    document.getElementById("storiesContainer").innerHTML += `
                 <div class="stories" id="storiesY">
                     <div class="dp-potrait">
                         <img src="images/profilePicture.svg" alt="">
@@ -68,20 +72,20 @@ function viewStories(){
                     
                     <hr style="width: 70%; text-align: center; background-color: #838b8f;">
                     <p class="storiesContent" id="storiesContent">
-                        ${currentrec.val().storyContent}
+                        ${currentrec.storyContent}
                     </p>
                     <div class="dateAndLikes" id="dateAndLikes">
                         <p id="dateDisp">
-                        ${currentrec.val().date}
+                        ${currentrec.date}
                         </p> 
                         <p style="font-size:1.4em" id="likesCount">
-                            <i class="fas fa-heart" onclick="likeStories('${currentrec.key}')" style="cursor:pointer; color:#808080"></i>  ${currentrec.val().likesCount}
+                            <i class="fas fa-heart" id="like-btn" onclick="checkLikes('${namerev[i]}')" style="cursor:pointer; color:#808080"></i>  ${currentrec.likesCount}
                         </p>
                     </div>
                 </div>
                 
                 `
-   
+                    i++;
     });
                 
             }
@@ -119,7 +123,7 @@ function addStories(){
             document.getElementById("myModal").style.display = "none";
             var path = window.location.pathname;
         	 var page = path.split("/").pop();
-			if(page == "publicStories.html"){
+ 		 if(page == "publicStories.html"){
             
                 window.location.href = "publicStories.html";
             }else if(page == "myStories.html"){
@@ -129,12 +133,8 @@ function addStories(){
                 
                 window.location.href = "pofile.html";
             }
-              
-                
-        });
-	   
-    
-        
+
+        });    
         
     }
     
@@ -192,7 +192,7 @@ function viewMyStories(uid){
 			                    </p> 
 			                    <p style="font-size:1.4em">
 			                        <i class="fas fa-trash-alt" onclick="deleteStories('${name[i]}')" style="cursor:pointer"></i>
-			                        <i class="fas fa-heart" onclick="likeStories('${name[i]}')" id="like-btn" style="cursor:pointer;"></i> ${currentrec.likesCount}
+			                        <i class="fas fa-heart" onclick="checkLikes('${name[i]}')" id="like-btn" style="cursor:pointer;"></i> ${currentrec.likesCount}
 			                    </p>
 			                </div>
 			            </div>
@@ -215,12 +215,24 @@ function deleteStories(storyid){
         var stories = firebase.database().ref('/stories/' + storyid);
         stories.remove();
         alert("Story deleted.");
-        window.location.href = 'myStories.html';
+        var path = window.location.pathname;
+        	 var page = path.split("/").pop();
+ 		 if(page == "publicStories.html"){
+            
+                window.location.href = "publicStories.html";
+            }else if(page == "myStories.html"){
+                
+                window.location.href = "myStories.html";
+            }else if(page == "pofile.html"){
+                
+                window.location.href = "pofile.html";
+            }
+
     }
 
 }
 
-function likeStories(storyid){
+function addLikeCount(storyid){
     var likeRef = firebase.database().ref('/stories/'+storyid);
     likeRef.child('likesCount').once('value', function(snapshot) {
         var currentLikes = snapshot.val() ? snapshot.val() : 0;
@@ -231,10 +243,61 @@ function likeStories(storyid){
                 console.log('Data could not be saved:' + error);
               } else {
                 console.log('Data saved successfully');
-			alert("You loved the stories, Don't forget to love yourself more!");
-			var path = window.location.pathname;
+              }
+            });
+    }); 
+    
+}
+
+function removeLikeCount(storyid){
+var user = firebase.auth().currentUser;
+var userid;
+   if(user !== null){
+	userid = user.uid;
+
+   }
+
+    var likeRef = firebase.database().ref('/stories/'+storyid);
+likeRef.child('likesCount').once('value', function(snapshot) {
+        var currentLikes = snapshot.val() ? snapshot.val() : 0;
+        likeRef.update({
+            'likesCount': currentLikes - 1
+            }, function(error) {
+              if (error) {
+                console.log('Data could not be saved:' + error);
+              } else {
+                console.log('Data saved successfully');
+              }
+            });
+    }); 
+    
+        
+}
+
+
+function likeStories(storyid){
+   var user = firebase.auth().currentUser;
+   var uid;
+   if(user !== null){
+       uid = user.uid;
+       
+    }
+    
+    // const storyRef = firebase.database().ref("/likeStories/" + storyid);
+    // const key = storyRef.key;
+    // console.log(key)
+    
+
+   let likestoriesRef = firebase.database().ref("/likeStories/"+storyid);
+   let likeData = {
+       'like' : true
+    }
+   likestoriesRef.child(uid).set(likeData);
+   addLikeCount(storyid);
+    alert("You liked the story!");
+        var path = window.location.pathname;
         	 var page = path.split("/").pop();
-			if(page == "publicStories.html"){
+ 		 if(page == "publicStories.html"){
             
                 window.location.href = "publicStories.html";
             }else if(page == "myStories.html"){
@@ -244,14 +307,58 @@ function likeStories(storyid){
                 
                 window.location.href = "pofile.html";
             }
-              }
-            });
-    }); 
-    
-
 
 }
 
+function unlikeStories(storyid){
+   var user = firebase.auth().currentUser;
+   var uid;
+   if(user !== null){
+	uid = user.uid;
+
+   }
+
+   let unlikestoriesRef = firebase.database().ref("/likeStories/"+storyid + "/" + uid);
+   unlikestoriesRef.remove();
+   removeLikeCount(storyid);
+    alert("You unliked the story");
+        var path = window.location.pathname;
+        	 var page = path.split("/").pop();
+ 		 if(page == "publicStories.html"){
+            
+                window.location.href = "publicStories.html";
+            }else if(page == "myStories.html"){
+                
+                window.location.href = "myStories.html";
+            }else if(page == "pofile.html"){
+                
+                window.location.href = "pofile.html";
+            }
+
+}
+
+function checkLikes(storyid){
+   var user = firebase.auth().currentUser;
+    var uid;
+   if(user !== null){
+	uid = user.uid;
+
+   }
+
+    let likeRef = firebase.database().ref("/likeStories/" + storyid + "/" + uid + "/");
+    likeRef.once("value", (snapshot) => {
+        const res = snapshot.val();
+        console.log(res);
+
+        if (res !== null) {
+            unlikeStories(storyid);
+            // window.location.href = "myStories.html";
+        } else {
+            likeStories(storyid);
+            // window.location.href = "myStories.html";
+        }
+    });
+}
 
 function logOut(){
     var ans = confirm("Are you sure want to log out?");

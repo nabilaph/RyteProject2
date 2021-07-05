@@ -65,6 +65,7 @@ firebase.auth().onAuthStateChanged((user) => {
             document.getElementById("username").value = dataSnapshot.val().username;
             document.getElementById("email").value = dataSnapshot.val().email;
             document.getElementById("password").value = dataSnapshot.val().password;
+            
         })
     }else{
         alert("No Active user");
@@ -135,5 +136,3 @@ function countInsight(){
         document.getElementById('likesCount').innerHTML=countLikes;
     })
 }
-
-
