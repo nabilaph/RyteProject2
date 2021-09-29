@@ -71,7 +71,7 @@
                      Create Youre Own Stories!
                  </h4>
                  <div id="createStory">
-                    <input type="text" placeholder="What's New?..." disabled> 
+                    <input type="text" placeholder="What's New?..."> 
                     
                  </div>
                 </div>
@@ -95,15 +95,15 @@
     </button>
 
      <!-- The Modal -->
-     <div id="myModal" class="modal">
+    <div id="myModal" class="modal">
 
         <!-- Modal content -->
         <div class="modal-content">
             <span class="close">&times;</span>
             <h2>Create Story</h2><br>
             <div>
-                <textarea rows="5" cols="50" id = "content" placeholder="What's New?..."></textarea>
-                <input type="button" value="Post" id="post-btn" onclick="addStories()">
+             	<textarea rows="5" cols="50" id = "content" placeholder="What's New?..."></textarea>
+                <input type="button" onclick="addStories()" value="Post" id="post-btn">
             </div>
         </div>
     

@@ -383,78 +383,77 @@ createStories > div > form > #content{
 
 /* The Modal (background) */
 .modal {
-  display: none; /* Hidden by default */
-  position: fixed; /* Stay in place */
-  z-index: 1; /* Sit on top */
-  padding-top: 100px; /* Location of the box */
-  left: 0;
-  top: 0;
-  width: 100%; /* Full width */
-  height: 100%; /* Full height */
-  overflow: auto; /* Enable scroll if needed */
-  background-color: rgb(0,0,0); /* Fallback color */
-  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-}
-
-/* Modal Content */
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  }
+  
+  /* Modal Content */
 .modal-content {
-  background-color: #eae2b7;
-  margin: auto;
-  padding: 20px;
-  border-radius: 20px;
-  border: 1px solid #888;
-  width: 50%;
-}
-
-.modal-content div{
-    display: flex;
-    flex-direction: column;
-}
-
-.modal-content #post-btn{
-    width: 80px;
-    border-radius: 5px;
-    color: white;
-    padding: 5px;
-    background-color: #d62828;
-    margin-top: 10px;
-    font-family: 'Montserrat', sans-serif;
+    background-color: #eae2b7;
+    margin: auto;
+    padding: 20px;
+    border-radius: 20px;
+    border: 1px solid #888;
+    width: 50%;
+  }
+  
+  .modal-content div{
+      display: flex;
+      flex-direction: column;
+  }
+  
+  .modal-content #post-btn{
+      width: 80px;
+      border-radius: 5px;
+      color: white;
+      padding: 5px;
+      background-color: #d62828;
+      margin-top: 10px;
+      font-family: 'Montserrat', sans-serif;
+      cursor: pointer;
+  }
+  
+  .modal-content #content{
+      max-width: 400px;
+      height: 100px;
+      text-align: left;
+      font-family: 'Montserrat', sans-serif;
+  }
+  
+  .modal-content input{
+      padding: 8px;
+      border-radius: 5px;
+      border: 0;
+      width: auto;
+  }
+  
+  .modal-content input::placeholder{
+      font-family: 'Montserrat', sans-serif;
+  }
+  
+  /* The Close Button */
+  .close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
+  
+  .close:hover,
+  .close:focus {
+    color: #000;
+    text-decoration: none;
     cursor: pointer;
-}
-
-.modal-content #content{
-    max-width: 400px;
-    height: 100px;
-    text-align: left;
-    font-family: 'Montserrat', sans-serif;
-}
-
-.modal-content input{
-    padding: 8px;
-    border-radius: 5px;
-    border: 0;
-    width: auto;
-}
-
-.modal-content input::placeholder{
-    font-family: 'Montserrat', sans-serif;
-}
-
-/* The Close Button */
-.close {
-  color: #aaaaaa;
-  float: right;
-  font-size: 28px;
-  font-weight: bold;
-}
-
-.close:hover,
-.close:focus {
-  color: #000;
-  text-decoration: none;
-  cursor: pointer;
-}
-
+  }
 
 /* responsive breakpoint */
 /* tablet */

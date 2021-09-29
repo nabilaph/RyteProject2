@@ -35,7 +35,7 @@ function logIn(){
     firebase.auth().signInWithEmailAndPassword(emailText, passwordText)
     .then((success)=>{        
         alert("Account logged in!");
-        window.location.href= "pofile.html";
+        window.location.href= "publicStories.html";
     }).catch((error)=>{
         alert(error.code + " " + error.message);
     })
@@ -65,7 +65,6 @@ firebase.auth().onAuthStateChanged((user) => {
             document.getElementById("username").value = dataSnapshot.val().username;
             document.getElementById("email").value = dataSnapshot.val().email;
             document.getElementById("password").value = dataSnapshot.val().password;
-            
         })
     }else{
         alert("No Active user");
@@ -103,7 +102,9 @@ function updateProfile(){
         email : emailText,
         password : passwordText
     };
+	updateUsernameInStories(usernameText);
     usersRef.child(uid).update(newData);
+    
     alert("Profile Data Updated!");
     window.location.href ="pofile.html";
 }
@@ -136,3 +137,28 @@ function countInsight(){
         document.getElementById('likesCount').innerHTML=countLikes;
     })
 }
+
+function updateUsernameInStories(usernameNew){
+
+    let user = firebase.auth().currentUser;
+        let uid;
+        if(user != null){
+            uid = user.uid;
+        }
+    let storiesref = firebase.database().ref('/stories').orderByChild('userid').equalTo(uid);
+     storiesref.once('value',(snapshot)=>
+	   snapshot.forEach(
+		function(rec){
+		    let usernameData ={
+                    username : usernameNew
+               };
+			console.log(rec.key);
+                firebase.database().ref('/stories').child(rec.key).update(usernameData);
+           }
+        )
+     )
+
+}
+
+
+
